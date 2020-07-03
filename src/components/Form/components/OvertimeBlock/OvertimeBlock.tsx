@@ -7,11 +7,19 @@ import "./styles.css";
 type IPropsOvertime = {
   overtime: number;
   removeOvertime: Function;
+  handleChangeReasonOvertime: Function;
+  handleChangeWhatDoOvertime: Function;
   showDeleteButton: boolean;
 };
 
 export default function OvertimeBlock(props: IPropsOvertime) {
-  const { overtime, removeOvertime, showDeleteButton } = props;
+  const {
+    overtime,
+    removeOvertime,
+    showDeleteButton,
+    handleChangeReasonOvertime,
+    handleChangeWhatDoOvertime
+  } = props;
 
   const handleDeleteButton = () => {
     removeOvertime();
@@ -33,11 +41,13 @@ export default function OvertimeBlock(props: IPropsOvertime) {
       </div>
       <div>
         <Select
+          handleChange={handleChangeReasonOvertime}
           className="overtime__select"
           label="Кокова причина переработок?"
           options={["По просьбе PM", "В счет будущих переработок"]}
         />
         <Select
+          handleChange={handleChangeWhatDoOvertime}
           className="overtime__select"
           label="Что делать с часами?"
           options={["В накопление", "В оплату"]}

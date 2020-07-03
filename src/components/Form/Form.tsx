@@ -17,6 +17,8 @@ type TpropsForm = {
 export default function Form(props: TpropsForm) {
   const [currentProject, setCurrentProject] = useState("");
   const [isSelectedTask, setIsSelectedTask] = useState(false);
+  const [reasonOvertime, setReasonOvertime] = useState("");
+  const [whatDoOvertime, setWhatDoOvertime] = useState("");
   const [trackTime, setTrackTime] = useState(0);
   const [overtime, setOvertime] = useState(0);
 
@@ -30,12 +32,27 @@ export default function Form(props: TpropsForm) {
     M.AutoInit();
   }, [currentProject, overtime]);
 
+  useEffect(() => {
+    if (overtime === 0) {
+      setReasonOvertime("");
+      setWhatDoOvertime("");
+    }
+  }, [overtime]);
+
   const handleSelectProject = (value: string) => {
     setCurrentProject(value);
   };
 
   const handleSelectTask = () => {
     setIsSelectedTask(true);
+  };
+
+  const handleSelectReasonOvertime = (value: string) => {
+    setReasonOvertime(value);
+  };
+
+  const handleSelectWhatDoOvertime = (value: string) => {
+    setWhatDoOvertime(value);
   };
 
   const getTotalHours = (hours: number) => {
@@ -64,10 +81,11 @@ export default function Form(props: TpropsForm) {
   };
 
   const checkActivity = () => {
+    const isFieldsFilled = isSelectedTask && trackTime > 0;
     if (overtime > 0) {
-      return false;
+      return isFieldsFilled && reasonOvertime && whatDoOvertime;
     } else {
-      return isSelectedTask && trackTime > 0;
+      return isFieldsFilled;
     }
   };
 
@@ -84,14 +102,26 @@ export default function Form(props: TpropsForm) {
         handleChangeTask={handleSelectTask}
       />
       {isSelectedTask && (
-        <TimeBlock
-          trackTime={trackTime}
-          dayleRate={dayleRate}
-          onChange={handleChangeTrackTime}
-        />
+        <>
+          <TimeBlock
+            trackTime={trackTime}
+            dayleRate={dayleRate}
+            onChange={handleChangeTrackTime}
+          />
+          <div className="row form__textarea">
+            <div className="input-field col s12">
+              <textarea
+                placeholder="Опишите выполненную работу"
+                className="materialize-textarea"
+              />
+            </div>
+          </div>
+        </>
       )}
       {overtime > 0 && (
         <OvertimeBlock
+          handleChangeReasonOvertime={handleSelectReasonOvertime}
+          handleChangeWhatDoOvertime={handleSelectWhatDoOvertime}
           showDeleteButton={checkDisplayDeleteButton()}
           removeOvertime={removeOvertime}
           overtime={overtime}

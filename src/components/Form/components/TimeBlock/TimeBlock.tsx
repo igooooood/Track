@@ -20,8 +20,9 @@ export default function TimeBlock(props: IPropsTimeBlock) {
         onChange={onChange}
         value={trackTime ? trackTime : ""}
         label="Время"
+        isHalf
       />
-      <Field id="rate" value={dayleRate} label="Ставка" disabled />
+      <Field id="rate" value={dayleRate} label="Ставка" isHalf disabled />
     </div>
   );
 }

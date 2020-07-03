@@ -8,21 +8,32 @@ type IPropsField = {
   onChange?: Function;
   placeholder?: string;
   disabled?: boolean;
+  isHalf?: boolean;
+  type?: "text" | "number";
 };
 
 export default function Field(props: IPropsField) {
-  const { id, label, value, placeholder, disabled, onChange } = props;
+  const {
+    id,
+    label,
+    value,
+    placeholder,
+    disabled,
+    onChange,
+    isHalf = false,
+    type = "number"
+  } = props;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(event.target.value);
   };
 
   return (
-    <div className="input-field col s6">
+    <div className={`input-field col ${isHalf ? "s6" : "s12"}`}>
       <input
         placeholder={placeholder}
         id={id}
-        type="text"
+        type={type}
         value={value}
         onChange={onChange && handleChange}
         disabled={disabled}

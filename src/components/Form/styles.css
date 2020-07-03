@@ -1,7 +1,8 @@
 .form {
-  margin: 0 auto;
   padding: 40px;
   max-width: 600px;
+  flex: 1 1 auto;
+  order: 1;
 }
 
 .form__title {
@@ -9,6 +10,11 @@
   margin-bottom: 40px;
   font-size: 24px;
   color: #c2185b;
+}
+
+.form__textarea {
+  margin-left: -0.75em;
+  margin-right: -0.75em;
 }
 
 .form__btn {
