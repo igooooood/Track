@@ -1,0 +1,25 @@
+.overtime {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.overtime__title {
+  margin: 0;
+  font-size: 16px;
+  color: #c2185b;
+}
+
+.overtime__value {
+  margin-left: 8px;
+  font-size: 16px;
+}
+
+.overtime__btn {
+  margin-left: auto;
+}
+
+.overtime__select:not(:last-child) {
+  margin-bottom: 30px;
+}
